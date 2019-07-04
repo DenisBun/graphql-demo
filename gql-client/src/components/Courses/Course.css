@@ -1,0 +1,22 @@
+.Course {
+    position: relative;
+    margin: 10px;
+    border: 3px solid skyblue;
+}
+
+.CourseDeleteBtn {
+    position: absolute;
+    left: 3px;
+    top: 3px;
+    cursor: pointer;
+    transition: all .2s ease-in-out;
+}
+
+.CourseDeleteBtn:hover {    
+    transform: scale(1.2);
+}
+
+.CourseSectionHeadline {
+    font-weight: bold;
+    text-decoration: underline;
+}

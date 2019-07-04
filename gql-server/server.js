@@ -5,10 +5,15 @@ var { buildSchema } = require('graphql');
 
 // GraphQL schema
 var schema = buildSchema(`
+    type Mutation {
+        removeCourse(id: Int!): [Course]
+    },
+
     type Query {
         course(id: Int!): Course
         courses(topic: String): [Course]
     },
+
     type Course {
         id: Int
         title: String
@@ -52,7 +57,8 @@ var getCourse = function(args) {
     return coursesData.filter(course => {
         return course.id == id;
     })[0];
-}
+};
+
 var getCourses = function(args) {
     if (args.topic) {
         var topic = args.topic;
@@ -60,11 +66,23 @@ var getCourses = function(args) {
     } else {
         return coursesData;
     }
+};
+
+var removeCourse = function(args) {
+    if (args.id) {
+        var id = args.id;
+        var filteredData = coursesData.filter(course => course.id !== id);
+        coursesData = filteredData;
+        return coursesData;
+    } else {
+        return coursesData;
+    }
 }
 
 var root = {
     course: getCourse,
-    courses: getCourses
+    courses: getCourses,
+    removeCourse: removeCourse,
 };
 
 // Create an express server and a GraphQL endpoint
